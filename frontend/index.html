@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoxBridge - Stop Texting. Start Speaking.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            surface: "var(--bg-surface)",
+            "surface-lowest": "var(--bg-surface-lowest)",
+            "surface-container-lowest": "var(--bg-surface-lowest)",
+            "surface-container-low": "var(--bg-surface-low)",
+            "surface-container": "var(--bg-surface-container)",
+            "surface-container-high": "var(--bg-surface-high)",
+            "surface-container-highest": "var(--bg-surface-highest)",
+            "surface-bright": "var(--bg-surface-highest)",
+            "on-surface": "var(--text-primary)",
+            "on-surface-variant": "var(--text-muted)",
+            "primary-container": "var(--accent-blue)",
+            "secondary-container": "var(--accent-blue-hover)",
+            "on-primary-container": "#ffffff",
+            primary: "var(--accent-blue-text)",
+            secondary: "var(--accent-blue-text)",
+            outline: "var(--text-muted)",
+            "outline-variant": "#94a3b8",
+            tertiary: "#ea580c",
+            "error-container": "#dc2626",
+            error: "#ef4444",
+          },
+          borderColor: {
+            theme: "var(--border-subtle)",
+            "theme-strong": "var(--border-strong)",
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px",
+          },
+          spacing: {
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            gutter: "1.5rem",
+            margin: "2rem",
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            display: ["Plus Jakarta Sans", "sans-serif"],
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "label-sm": ["Inter"],
+            "display-lg": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+          },
+          fontSize: {
+            "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }],
+            "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "label-lg": ["14px", { lineHeight: "20px", fontWeight: "500" }],
+            "label-md": ["12px", { lineHeight: "16px", fontWeight: "500" }],
+            "label-sm": ["11px", { lineHeight: "14px", fontWeight: "600" }],
+            "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.015em", fontWeight: "600" }],
+            "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "-0.005em", fontWeight: "600" }],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-white min-h-screen flex flex-col justify-between">
+
+  <!-- Header Navigation (Room intentionally excluded as a protected route) -->
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-theme shadow-sm" style="background-color: var(--bg-header);">
+    <div class="h-20 w-full max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
+      <a class="flex items-center gap-3 group" href="index.html">
+        <img alt="VoxBridge Logo" class="h-10 w-10 object-contain rounded-lg bg-[#0a0a0c] border border-theme p-1 transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBtTGm-mAyNqmYxvp_kyd3QQPHoe25vpuBpzFH3Z0wgHs0gjRApjfQiecwNkveBGG2DSvSCdVJBuExTM4OQ3-5vUMo71xYCbnfDZ20pc0F0mIve4vCdMU59U-CIT16ezMO11RBWCmdo0awl8Oj0poofuDzrQeMWg8rs7J0uvouQkYXJ_Nr8UtqEPe1QnSg2_KGXuMyiPpZ3PCvit0_Gn9_FuYn0tpVmIGQ984EhRujrN4IoIXSs3xcRg" />
+        <span class="font-display text-xl text-on-surface tracking-tight font-bold group-hover:text-primary transition-colors">VoxBridge</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a aria-current="page" class="text-on-surface font-semibold transition-colors flex items-center gap-1.5 nav-link-animated" href="index.html">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>Home
+        </a>
+        <a class="text-on-surface-variant hover:text-on-surface transition-colors nav-link-animated" href="dashboard.html">Dashboard</a>
+        <a class="text-on-surface-variant hover:text-on-surface transition-colors nav-link-animated" href="account.html">Account</a>
+        <a class="text-on-surface-variant hover:text-on-surface transition-colors nav-link-animated" href="founder.html">Founder</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button class="p-2.5 rounded-lg bg-surface-container-low border border-theme text-on-surface hover:bg-surface-container-high transition-colors cursor-pointer flex items-center justify-center hover-btn" onclick="window.toggleTheme()" title="Switch Light / Dark Mode" aria-label="Switch Light or Dark Mode">
+          <span class="material-symbols-outlined text-[19px]" id="themeToggleIcon">dark_mode</span>
+        </button>
+
+        <button id="mobileMenuToggle" class="md:hidden p-2 rounded-lg bg-surface-container-low border border-theme text-on-surface transition-colors" onclick="document.getElementById('mobileNavMenu').classList.toggle('hidden')" aria-label="Toggle Navigation Menu">
+          <span class="material-symbols-outlined text-[20px]">menu</span>
+        </button>
+
+        <button class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary-container hover:bg-secondary-container text-white font-semibold text-sm shadow-md cursor-pointer hover-btn" onclick="window.openMatcherModal()">
+          Get Started
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileNavMenu" class="hidden md:hidden bg-surface border-b border-theme px-6 py-3 flex flex-col gap-2">
+      <a class="text-sm text-on-surface font-medium py-1" href="index.html">Home</a>
+      <a class="text-sm text-on-surface-variant py-1" href="dashboard.html">Dashboard</a>
+      <a class="text-sm text-on-surface-variant py-1" href="account.html">Account</a>
+      <a class="text-sm text-on-surface-variant py-1" href="founder.html">Founder</a>
+    </div>
+  </header>
+
+  <main class="w-full pt-20 bg-surface flex-1">
+    <div class="flex flex-col w-full relative overflow-x-hidden">
+      <!-- Background Parallax Ambient Glows -->
+      <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <div class="parallax-layer absolute -top-24 left-1/4 w-[520px] h-[320px] bg-primary-container/10 blur-[120px] rounded-full" data-parallax-speed="0.22"></div>
+        <div class="parallax-layer absolute top-[540px] right-1/5 w-[420px] h-[280px] bg-primary-container/10 blur-[110px] rounded-full" data-parallax-speed="-0.16"></div>
+      </div>
+
+      <!-- HERO SECTION -->
+      <section class="relative w-full pt-12 pb-20 md:pt-16 md:pb-28 px-margin flex flex-col items-center" id="home">
+        <div class="parallax-layer flex flex-col items-center w-full" data-parallax-speed="-0.08">
+          <div class="max-w-4xl text-center flex flex-col items-center gap-space-md">
+            <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-on-surface font-bold tracking-tight leading-[1.12]">
+              Stop Texting. <br class="hidden sm:inline" /><span class="text-primary">Start Speaking.</span>
+            </h1>
+            <p class="text-base sm:text-lg text-on-surface-variant max-w-2xl text-center leading-relaxed font-normal mt-3">
+              1-on-1 language speaking sessions matched by free time slots across time zones—with a silent AI helper when you get stuck. Reading and writing are optional.
+            </p>
+          </div>
+
+          <div class="mt-space-xl flex flex-col sm:flex-row items-center gap-space-md z-20">
+            <button class="w-full sm:w-auto px-6 py-3 rounded-lg bg-primary-container hover:bg-secondary-container text-white font-semibold text-sm shadow-lg flex items-center justify-center gap-2 group cursor-pointer hover-btn" onclick="window.openMatcherModal()">
+              <span>Book Mock Session</span>
+              <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </button>
+            <a class="w-full sm:w-auto px-6 py-3 rounded-lg bg-surface-container-low border border-theme text-on-surface font-medium text-sm hover:bg-surface-container-high flex items-center justify-center gap-2 hover-btn" href="dashboard.html">
+              <span class="material-symbols-outlined text-[18px] text-on-surface-variant">dashboard</span>
+              <span>Open App Dashboard</span>
+            </a>
+          </div>
+
+          <div class="mt-space-lg flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-on-surface-variant font-label-sm text-label-sm">
+            <span class="flex items-center gap-1.5 text-xs"><span class="material-symbols-outlined text-[15px] text-primary">check_circle</span> Speaking-first 1-on-1 calls</span>
+            <span class="flex items-center gap-1.5 text-xs"><span class="material-symbols-outlined text-[15px] text-primary">check_circle</span> Time-zone slot matching</span>
+            <span class="flex items-center gap-1.5 text-xs"><span class="material-symbols-outlined text-[15px] text-primary">check_circle</span> Native exchange or same-language duo</span>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE LIVE SESSION PROTOTYPE -->
+        <div class="parallax-layer w-full max-w-5xl mt-space-xl relative" data-parallax-speed="0.05" id="interactiveImmersionStage">
+          <div class="w-full bg-surface-container-lowest rounded-xl p-space-md sm:p-space-lg shadow-xl flex flex-col gap-space-md border border-theme">
+            <div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-sm border-b border-theme">
+              <div class="flex items-center gap-space-sm">
+                <span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-pulse"></span>
+                <span class="font-headline-sm text-headline-sm text-on-surface" id="stageHeaderTitle">Live Call (Elena Speaking)</span>
+                <span class="px-2 py-0.5 rounded-full bg-surface-container-low border border-theme text-primary font-label-sm text-label-sm">Room Preview</span>
+              </div>
+
+              <div class="flex items-center gap-1.5 bg-surface-container-low p-1 rounded-lg border border-theme">
+                <button class="px-2.5 py-1 rounded text-label-sm font-medium transition-all text-on-surface-variant hover:text-on-surface flex items-center gap-1 cursor-pointer" id="stepBtn1" onclick="window.setLiveStage(1)">
+                  <span>1: Lukas</span>
+                </button>
+                <button class="px-2.5 py-1 rounded text-label-sm font-semibold transition-all bg-primary-container text-white flex items-center gap-1 shadow-sm cursor-pointer" id="stepBtn2" onclick="window.setLiveStage(2)">
+                  <span>2: Elena</span>
+                </button>
+                <button class="px-2.5 py-1 rounded text-label-sm font-medium transition-all text-on-surface-variant hover:text-on-surface flex items-center gap-1 cursor-pointer" id="stepBtn3" onclick="window.setLiveStage(3)">
+                  <span class="material-symbols-outlined text-[14px]">fact_check</span>
+                  <span>3: Recap</span>
+                </button>
+                <button class="px-2 py-1 rounded text-label-sm bg-surface-container-high text-primary hover:opacity-80 transition-colors flex items-center cursor-pointer" id="autoPlayToggleBtn" onclick="window.toggleAutoPlay()" title="Toggle Auto Sequence">
+                  <span class="material-symbols-outlined text-[16px]" id="autoPlayIcon">pause</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- VIEWPORT A: Live 2-Up Call -->
+            <div class="transition-all duration-300 flex flex-col gap-space-md opacity-100" id="liveCallStage">
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+                <div class="md:col-span-6 bg-surface-container-low rounded-lg p-space-md flex flex-col justify-between gap-4 border border-theme" id="lukasCard">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-space-sm">
+                      <img alt="Lukas Weber" class="w-11 h-11 rounded-full object-cover border border-theme" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAziVIb3ujCmadGK4N9v7oFJTLPlWJNyxwBfHd1DPClJ83pMQ_PZo_QBMqiXQvDF_kswygGSMti3kH4gmgiM8I43hJA3JZowoCh_TSzRcqyQC5-1l0118IMEAg8P72bE1kNYGySRfmly-mCh5VReZNeSGhwxovtWPLParqYATH9On35SvKLAVlDLzR0tNtt7q8daJBY6Mwzfki_IlSWHMLDf4JAouRqgBQDQ1oJ1CPC" />
+                      <div>
+                        <div class="flex items-center gap-1.5">
+                          <span class="font-label-lg text-label-lg text-on-surface font-semibold">Lukas Weber</span>
+                          <span class="text-label-sm px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-medium">Native DE</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+                          <span class="material-symbols-outlined text-[14px]">schedule</span>
+                          <span>Berlin • 3:00 PM CET</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="lukasStatusBadge">
+                      <span class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+                        <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Listening
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="my-5 flex items-end gap-1.5 h-14 px-4 justify-center opacity-40 transition-all duration-300" id="lukasWaveform">
+                    <div class="w-1.5 bg-outline-variant rounded-full h-3"></div>
+                    <div class="w-1.5 bg-outline-variant rounded-full h-5"></div>
+                    <div class="w-1.5 bg-outline-variant rounded-full h-3"></div>
+                    <div class="w-1.5 bg-outline-variant rounded-full h-4"></div>
+                    <div class="w-1.5 bg-outline-variant rounded-full h-3"></div>
+                  </div>
+
+                  <div class="bg-surface-container rounded-lg p-space-sm border border-theme min-h-[52px] flex items-center">
+                    <p class="font-body-md text-body-md text-on-surface italic" id="lukasTranscriptText">
+                      <span class="text-on-surface-variant italic">“Verstehe! Wie läuft das nach der Arbeit in New York?”</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="md:col-span-6 bg-surface-container-low rounded-lg p-space-md flex flex-col justify-between gap-4 ring-2 ring-primary-container shadow-lg" id="elenaCard">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-space-sm">
+                      <img alt="Elena Rostova" class="w-11 h-11 rounded-full object-cover border border-theme" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmnAE2pgultUerq3_CqPBforoNj1vR8NSVtpKnlUTBL3NkcDTSDwYVZ_56XoCYr06bKDut0EE_Y_xvugk4B3JRStskImFIL_gL1vIKdzGNODiGsHgCv4jn8zaV63KC5wOF-T4PoCcJa6iJ1uFW2i4VKuOUJAAsYtLxPx8d0NN_eBEJfJWJ3FiFNce2XPFCBq4YUc09YoiG3v0rWNB6MHLX_zd-PvXqqOfJXM0MYUnC" />
+                      <div>
+                        <div class="flex items-center gap-1.5">
+                          <span class="font-label-lg text-label-lg text-on-surface font-semibold">Elena Rostova</span>
+                          <span class="text-label-sm px-1.5 py-0.5 rounded bg-surface-container-high text-tertiary font-medium">B1 DE</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+                          <span class="material-symbols-outlined text-[14px]">schedule</span>
+                          <span>New York • 9:00 AM EST</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="elenaStatusBadge">
+                      <span class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-container text-white font-label-sm text-label-sm font-semibold">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>Speaking
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="my-5 flex items-end gap-1.5 h-14 px-4 justify-center opacity-100 transition-all duration-300" id="elenaWaveform">
+                    <div class="w-1.5 bg-primary-container rounded-full animate-bounce h-10" style="animation-delay: 0.05s"></div>
+                    <div class="w-1.5 bg-primary-container rounded-full animate-bounce h-14" style="animation-delay: 0.22s"></div>
+                    <div class="w-1.5 bg-primary-container rounded-full animate-bounce h-11" style="animation-delay: 0.15s"></div>
+                    <div class="w-1.5 bg-primary-container rounded-full animate-bounce h-13" style="animation-delay: 0.35s"></div>
+                    <div class="w-1.5 bg-primary-container rounded-full animate-bounce h-8" style="animation-delay: 0.1s"></div>
+                  </div>
+
+                  <div class="bg-primary-container/10 border border-primary-container/50 rounded-lg p-space-sm flex items-center justify-between min-h-[52px]" id="elenaSpeechBox">
+                    <p class="font-body-md text-body-md text-on-surface-variant" id="elenaTranscriptText">
+                      <span class="text-on-surface font-medium">“Genau, nach Feierabend treffen wir uns oft auf einen Drink.”</span>
+                    </p>
+                    <span class="material-symbols-outlined text-primary text-[20px] animate-pulse" id="elenaMicIcon">mic</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-surface-container rounded-lg px-4 py-3 border border-theme flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5 text-body-sm text-on-surface">
+                  <span class="w-2 h-2 rounded-full bg-primary-container shrink-0"></span>
+                  <span class="font-label-sm text-primary uppercase font-bold tracking-wider">AI Bridge:</span>
+                  <span id="hudPromptText">Whispered cue to Elena: ‘nach Feierabend’ (after work).</span>
+                </div>
+                <div class="flex items-center gap-3 text-[11px] text-on-surface-variant font-mono shrink-0">
+                  <span>Talk split: 50% / 50%</span>
+                  <span class="px-1.5 py-0.5 rounded bg-surface-container-low border border-theme text-primary" id="hudLatencyBadge">118ms</span>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center justify-between pt-space-sm gap-space-sm border-t border-theme">
+                <div class="flex items-center gap-space-md text-label-sm text-on-surface-variant">
+                  <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-primary">graphic_eq</span>21ms voice latency</span>
+                  <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-tertiary">hearing</span>Private whisper cues</span>
+                </div>
+                <div class="flex items-center gap-space-sm">
+                  <button class="px-3 py-1.5 rounded bg-surface-container-high hover:opacity-90 text-on-surface text-label-sm font-medium flex items-center gap-1 cursor-pointer hover-btn" onclick="window.advanceSpeakerTurn()">
+                    <span class="material-symbols-outlined text-[16px]">swap_horiz</span>
+                    <span id="turnButtonText">View Call Summary</span>
+                  </button>
+                  <button class="px-3 py-1.5 rounded bg-primary-container hover:bg-secondary-container text-white text-label-sm font-medium flex items-center gap-1 cursor-pointer hover-btn" onclick="window.openMatcherModal()">
+                    <span class="material-symbols-outlined text-[16px]">call</span>
+                    <span>Book &amp; Join Call</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- VIEWPORT B: Post-Session Recap -->
+            <div class="transition-all duration-300 flex-col gap-space-md py-1 hidden opacity-0" id="postSessionSummaryStage">
+              <div class="bg-surface-container-low rounded-xl p-space-md border border-primary-container/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+                <div>
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Call Recap • 30-Minute Session</h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Lukas Weber &amp; Elena Rostova • Key phrases &amp; corrections</p>
+                </div>
+                <div class="flex items-center gap-space-sm">
+                  <button class="px-3.5 py-1.5 rounded-lg bg-primary-container hover:bg-secondary-container text-white text-label-sm font-semibold flex items-center gap-1.5 cursor-pointer hover-btn" onclick="window.downloadSessionCSV()">
+                    <span class="material-symbols-outlined text-[16px]">download</span>
+                    <span>Download .CSV</span>
+                  </button>
+                  <button class="px-3 py-1.5 rounded-lg bg-surface-container-high text-on-surface text-label-sm font-medium flex items-center gap-1 cursor-pointer hover-btn" onclick="window.setLiveStage(1)">
+                    <span class="material-symbols-outlined text-[16px]">replay</span>
+                    <span>Back to Call</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="bg-surface-container-low rounded-xl p-space-md border border-theme space-y-3">
+                <div class="bg-surface-container rounded-lg p-3 border border-theme">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-error/15 text-error">Word Order</span>
+                  <div class="text-body-sm text-on-surface mt-1">
+                    Spoken: <span class="line-through text-error">“Gestern ich habe gemacht...”</span> → Better: <span class="text-primary font-bold">“Gestern habe ich gemacht...”</span>
+                  </div>
+                </div>
+                <div class="bg-surface-container rounded-lg p-3 border border-theme">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-primary-container/15 text-primary">Phrase</span>
+                  <div class="text-body-sm text-on-surface mt-1">
+                    Tried: <span class="text-on-surface-variant">“after work drinks”</span> → Natural German: <span class="text-primary font-bold">“Feierabend machen”</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS & TIMEZONE MATCHING -->
+      <section class="w-full py-20 px-margin bg-surface-container-lowest border-y border-theme relative" id="how-it-works">
+        <div class="max-w-6xl mx-auto flex flex-col gap-space-xl">
+          <div class="reveal-on-scroll flex flex-col md:flex-row md:items-end justify-between gap-space-md pb-space-lg">
+            <div class="max-w-2xl">
+              <h2 class="font-display text-3xl font-bold text-on-surface tracking-tight leading-snug">Matched by Language and Free Time Slots.</h2>
+              <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed mt-2">
+                Pick what you speak and what you want to practice, add your free times, and connect across time zones—or pair with someone learning the same language.
+              </p>
+            </div>
+            <div class="flex items-center gap-space-sm bg-surface-container p-1.5 rounded-lg border border-theme shrink-0">
+              <button class="px-4 py-2 rounded-md font-label-md text-label-md font-semibold transition-all bg-primary-container text-white shadow-sm cursor-pointer" id="modeExchangeBtn" onclick="window.switchDuoMode('exchange')">Native ↔ Learner</button>
+              <button class="px-4 py-2 rounded-md font-label-md text-label-md font-semibold text-on-surface-variant hover:text-on-surface transition-all cursor-pointer" id="modeSameTargetBtn" onclick="window.switchDuoMode('same')">Same Language</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+            <div class="reveal-on-scroll reveal-delay-1 hover-card bg-surface-container rounded-xl p-space-lg flex flex-col justify-between border border-theme shadow-sm">
+              <div class="space-y-space-md">
+                <div class="card-icon-box w-12 h-12 rounded-lg bg-primary-container/15 flex items-center justify-center text-primary">
+                  <span class="material-symbols-outlined text-[28px]">swap_calls</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Tandem Exchange</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                  Pair with someone who speaks your target language and wants to practice yours during a slot that works for both of you.
+                </p>
+              </div>
+              <div class="mt-space-lg pt-space-md bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between text-body-sm text-on-surface">
+                <span>Split time in both languages</span>
+                <span class="text-primary font-medium text-label-sm">1-on-1 Call</span>
+              </div>
+            </div>
+
+            <div class="reveal-on-scroll reveal-delay-2 hover-card bg-surface-container rounded-xl p-space-lg flex flex-col justify-between border border-theme shadow-sm">
+              <div class="space-y-space-md">
+                <div class="card-icon-box w-12 h-12 rounded-lg bg-primary-container/15 flex items-center justify-center text-primary">
+                  <span class="material-symbols-outlined text-[28px]">diversity_3</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Same-Language Partners</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                  Both of you learning the same language? Pair up to practice speaking together while the AI Bridge helps whenever either person freezes.
+                </p>
+              </div>
+              <div class="mt-space-lg pt-space-md bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between text-body-sm text-on-surface">
+                <span>Practice together as peers</span>
+                <span class="text-primary font-medium text-label-sm">AI Bridge Help</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TIMEZONE CONVERTER -->
+          <div class="reveal-on-scroll hover-card w-full bg-surface-container rounded-xl p-space-lg md:p-space-xl border border-theme shadow-sm">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mb-space-lg pb-space-md border-b border-theme">
+              <div>
+                <h3 class="font-display text-2xl text-on-surface font-bold tracking-tight">Time Zone Slot Converter</h3>
+                <p class="text-sm text-on-surface-variant mt-1">See how your free slot converts to partner time zones automatically.</p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-label-sm text-on-surface-variant mr-1">Your Time Zone:</span>
+                <button class="px-3 py-1.5 rounded-full text-label-sm font-medium bg-primary-container text-white transition-all cursor-pointer hover-btn" id="btnTzBerlin" onclick="window.setTimezoneBase('Europe/Berlin')">Berlin (CET)</button>
+                <button class="px-3 py-1.5 rounded-full text-label-sm font-medium bg-surface-container-high text-on-surface transition-all cursor-pointer hover-btn" id="btnTzNYC" onclick="window.setTimezoneBase('America/New_York')">New York (EST)</button>
+                <button class="px-3 py-1.5 rounded-full text-label-sm font-medium bg-surface-container-high text-on-surface transition-all cursor-pointer hover-btn" id="btnTzTokyo" onclick="window.setTimezoneBase('Asia/Tokyo')">Tokyo (JST)</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+              <div class="lg:col-span-5 space-y-space-md">
+                <div>
+                  <label class="flex justify-between text-label-lg text-on-surface font-medium mb-2" for="timeSlider">
+                    <span>Your Free Slot:</span>
+                    <span class="text-primary font-bold" id="displaySelectedTime">15:00 (03:00 PM CET)</span>
+                  </label>
+                  <input class="w-full h-2 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary-container" id="timeSlider" max="23" min="6" oninput="window.updateTimeCalculator(this.value)" step="1" type="range" value="15" />
+                </div>
+
+                <div class="p-space-md rounded-lg bg-surface-container-low border border-theme space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="font-label-sm text-on-surface-variant font-medium">Slot Overlap:</span>
+                    <span class="font-label-sm px-2 py-0.5 rounded bg-primary-container/15 text-primary font-bold" id="convenienceScoreBadge">Good Overlap</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="font-label-sm text-on-surface-variant font-medium">Available Speakers:</span>
+                    <span class="font-label-sm text-on-surface font-bold" id="activeDuoCount">48 Speakers</span>
+                  </div>
+                </div>
+
+                <button class="w-full py-3 rounded-lg bg-primary-container text-white font-label-lg text-label-lg shadow-sm hover:bg-secondary-container flex items-center justify-center gap-2 cursor-pointer hover-btn" onclick="window.openMatcherModal()">
+                  <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                  <span>Add Free Slot</span>
+                </button>
+              </div>
+
+              <div class="lg:col-span-7 bg-surface-container-low rounded-xl p-space-md md:p-space-lg border border-theme flex flex-col gap-space-md">
+                <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Converted Partner Times</span>
+                <div class="tz-row-hover flex items-center justify-between p-space-sm rounded-lg bg-surface-container border border-theme">
+                  <div>
+                    <div class="font-label-lg text-label-lg text-on-surface font-semibold">New York (EST)</div>
+                    <div class="font-label-sm text-label-sm text-on-surface-variant">UTC -5</div>
+                  </div>
+                  <div class="font-headline-sm text-headline-sm text-on-surface font-bold" id="convertedNycTime">09:00 AM</div>
+                </div>
+                <div class="tz-row-hover flex items-center justify-between p-space-sm rounded-lg bg-surface-container border border-theme">
+                  <div>
+                    <div class="font-label-lg text-label-lg text-on-surface font-semibold">São Paulo (BRT)</div>
+                    <div class="font-label-sm text-label-sm text-on-surface-variant">UTC -3</div>
+                  </div>
+                  <div class="font-headline-sm text-headline-sm text-on-surface font-bold" id="convertedSaoPauloTime">11:00 AM</div>
+                </div>
+                <div class="tz-row-hover flex items-center justify-between p-space-sm rounded-lg bg-surface-container border border-theme">
+                  <div>
+                    <div class="font-label-lg text-label-lg text-on-surface font-semibold">Tokyo (JST)</div>
+                    <div class="font-label-sm text-label-sm text-on-surface-variant">UTC +9</div>
+                  </div>
+                  <div class="font-headline-sm text-headline-sm text-on-surface font-bold" id="convertedTokyoTime">11:00 PM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING -->
+      <section class="w-full py-20 px-margin bg-surface relative" id="pricing">
+        <div class="max-w-5xl mx-auto flex flex-col gap-space-xl">
+          <div class="reveal-on-scroll text-center max-w-2xl mx-auto">
+            <h2 class="font-display text-3xl font-bold text-on-surface tracking-tight leading-snug">Simple, Low-Barrier Pricing</h2>
+            <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed mt-2">Built for high learning impact rather than heavy subscriptions.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg items-stretch">
+            <div class="reveal-on-scroll reveal-delay-1 hover-card bg-surface-container-low rounded-2xl p-space-lg md:p-space-xl flex flex-col justify-between border border-theme shadow-sm">
+              <div>
+                <span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold">Monthly</span>
+                <h3 class="font-headline-md text-headline-md text-on-surface font-bold mt-2">Monthly Pass</h3>
+                <div class="flex items-baseline gap-1 my-space-md">
+                  <span class="text-display-lg text-on-surface font-bold">€8</span>
+                  <span class="text-body-md text-on-surface-variant">/ month</span>
+                </div>
+                <p class="text-body-md text-on-surface-variant">1-on-1 speaking sessions, time-zone slot matching, and AI Bridge whisper support.</p>
+              </div>
+              <button class="mt-space-xl w-full py-3.5 rounded-lg bg-surface-container border border-theme hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg cursor-pointer hover-btn" onclick="window.openMatcherModal()">
+                Get Started
+              </button>
+            </div>
+
+            <div class="reveal-on-scroll reveal-delay-2 hover-card bg-surface-container-low rounded-2xl p-space-lg md:p-space-xl flex flex-col justify-between border-2 border-primary-container shadow-md relative">
+              <div class="absolute -top-3.5 right-6 px-3 py-1 rounded-full bg-primary-container text-white font-label-sm text-label-sm font-bold uppercase tracking-wider">One-Time</div>
+              <div>
+                <span class="px-2.5 py-1 rounded-full bg-primary-container/15 text-primary font-label-sm text-label-sm font-semibold">Lifetime</span>
+                <h3 class="font-headline-md text-headline-md text-on-surface font-bold mt-2">One-Time Pass</h3>
+                <div class="flex items-baseline gap-1 my-space-md">
+                  <span class="text-display-lg text-on-surface font-bold">€89</span>
+                  <span class="text-body-md text-on-surface-variant">/ once (€80–€90 range)</span>
+                </div>
+                <p class="text-body-md text-on-surface-variant">Pay once and keep access without monthly bills.</p>
+              </div>
+              <button class="mt-space-xl w-full py-3.5 rounded-lg bg-primary-container hover:bg-secondary-container text-white font-label-lg text-label-lg cursor-pointer hover-btn" onclick="window.openMatcherModal()">
+                Choose One-Time Pass
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOUNDER CALLOUT (in index.html) -->
+<section class="w-full py-16 px-margin">
+  <div class="reveal-on-scroll hover-card max-w-5xl mx-auto bg-surface-container-low border border-theme rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
+    <div class="space-y-3 text-center md:text-left">
+      <h3 class="font-display text-2xl text-on-surface font-bold tracking-tight">“You learn to speak by speaking with people.”</h3>
+      <p class="text-sm text-on-surface-variant leading-relaxed max-w-2xl">
+        Hanish sparked the idea for VoxBridge because reading and tapping words on a screen didn't help him hold real conversations—then our TU Dortmund co-founding team polished and built the platform you see today.
+      </p>
+      <div class="pt-1 text-sm text-on-surface-variant font-medium">
+        <strong class="text-on-surface">Hanish</strong> (Founder &amp; Lead) &amp; <strong class="text-on-surface">Co-Founders</strong> — Luis, Swen, Nana, Zoher and Kamel
+      </div>
+    </div>
+    <a href="founder.html" class="shrink-0 px-5 py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high border border-theme text-on-surface text-sm font-medium hover-btn">
+      Meet the Founders →
+    </a>
+  </div>
+</section>
+    </div>
+  </main>
+
+  <!-- MATCHER MODAL (Single Dropdown Toggle for Same Language) -->
+  <div class="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/60 backdrop-blur-sm hidden" id="matcherModal">
+    <div class="bg-surface-container w-full max-w-2xl rounded-2xl p-space-lg md:p-space-xl shadow-2xl relative flex flex-col max-h-[90vh] overflow-y-auto border border-theme">
+      <button class="absolute top-4 right-4 p-2 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface cursor-pointer" onclick="window.closeMatcherModal()">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+      <div class="mb-space-md">
+        <span class="text-primary font-label-sm text-label-sm uppercase font-semibold">Free Slot &amp; Language Setup</span>
+        <h3 class="font-headline-md text-headline-md text-on-surface font-bold mt-1">Find a Speaking Partner</h3>
+      </div>
+
+      <form class="space-y-space-md" onsubmit="window.handleMatcherSubmit(event, 'modal')">
+        <input type="hidden" id="modalModeInput" value="exchange" />
+        <div class="grid grid-cols-2 gap-2">
+          <button class="py-2.5 px-3 rounded-lg text-label-sm font-semibold bg-primary-container text-white flex items-center justify-center gap-1.5 cursor-pointer" id="modalBtnExchange" onclick="window.selectModalType('exchange', 'modal')" type="button">Native ↔ Learner</button>
+          <button class="py-2.5 px-3 rounded-lg text-label-sm font-semibold bg-surface-container-high text-on-surface-variant flex items-center justify-center gap-1.5 cursor-pointer" id="modalBtnPeer" onclick="window.selectModalType('peer', 'modal')" type="button">Same Language</button>
+        </div>
+
+        <div id="modalDualLangGroup" class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <div>
+            <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Language I Know:</label>
+            <select id="modalKnownLang" class="w-full bg-surface-container-low text-on-surface text-label-md rounded-lg p-2.5 border border-theme">
+              <option value="English">English</option>
+              <option value="German (Deutsch)">German (Deutsch)</option>
+              <option value="Spanish (Español)">Spanish (Español)</option>
+              <option value="French (Français)">French (Français)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Language I Want to Speak:</label>
+            <select id="modalTargetLang" class="w-full bg-surface-container-low text-on-surface text-label-md rounded-lg p-2.5 border border-theme">
+              <option value="German (Deutsch)">German (Deutsch)</option>
+              <option value="Spanish (Español)">Spanish (Español)</option>
+              <option value="English">English</option>
+              <option value="French (Français)">French (Français)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="modalSingleLangGroup" class="hidden">
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Shared Language to Practice Together:</label>
+          <select id="modalSingleLang" class="w-full bg-surface-container-low text-on-surface text-label-md rounded-lg p-2.5 border border-theme">
+            <option value="German (Deutsch)">German (Deutsch)</option>
+            <option value="Spanish (Español)">Spanish (Español)</option>
+            <option value="English">English</option>
+            <option value="French (Français)">French (Français)</option>
+            <option value="Japanese (日本語)">Japanese (日本語)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <div>
+            <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Your Time Zone:</label>
+            <select id="modalTimezone" class="w-full bg-surface-container-low text-on-surface text-label-md rounded-lg p-2.5 border border-theme">
+              <option value="Europe/Berlin (CET)">Europe/Berlin (CET)</option>
+              <option value="America/New_York (EST)">America/New_York (EST)</option>
+              <option value="Asia/Tokyo (JST)">Asia/Tokyo (JST)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Free Time Slot:</label>
+            <select id="modalSlot" class="w-full bg-surface-container-low text-on-surface text-label-md rounded-lg p-2.5 border border-theme">
+              <option value="15:00 - 15:30">15:00 - 15:30</option>
+              <option value="09:00 - 09:30">09:00 - 09:30</option>
+              <option value="19:00 - 19:30">19:00 - 19:30</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="w-full py-3.5 rounded-lg bg-primary-container hover:bg-secondary-container text-white font-label-lg text-label-lg shadow-md cursor-pointer hover-btn" type="submit">
+          Book Mock Session &amp; Join Room →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Global Footer -->
+  <footer class="w-full border-t border-theme py-12 mt-16" style="background-color: var(--bg-footer);">
+    <div class="w-full max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-on-surface-variant">
+      <div class="flex items-center gap-3">
+        <span class="font-display text-base text-on-surface font-bold">VoxBridge</span>
+        <span>— Stop Texting. Start Speaking.</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="index.html" class="hover:text-on-surface">Home</a>
+        <a href="dashboard.html" class="hover:text-on-surface">Dashboard</a>
+        <a href="account.html" class="hover:text-on-surface">Account</a>
+        <a href="founder.html" class="hover:text-on-surface">Founder</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

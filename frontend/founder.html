@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Founders - VoxBridge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            surface: "var(--bg-surface)",
+            "surface-lowest": "var(--bg-surface-lowest)",
+            "surface-container-lowest": "var(--bg-surface-lowest)",
+            "surface-container-low": "var(--bg-surface-low)",
+            "surface-container": "var(--bg-surface-container)",
+            "surface-container-high": "var(--bg-surface-high)",
+            "surface-container-highest": "var(--bg-surface-highest)",
+            "on-surface": "var(--text-primary)",
+            "on-surface-variant": "var(--text-muted)",
+            "primary-container": "var(--accent-blue)",
+            "secondary-container": "var(--accent-blue-hover)",
+            primary: "var(--accent-blue-text)",
+          },
+          borderColor: {
+            theme: "var(--border-subtle)",
+            "theme-strong": "var(--border-strong)",
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            display: ["Plus Jakarta Sans", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-surface font-sans text-on-surface antialiased selection:bg-primary-container selection:text-white min-h-screen flex flex-col justify-between">
+
+  <!-- Unified Animated Header Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-theme shadow-sm" style="background-color: var(--bg-header);">
+    <div class="h-20 w-full max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
+      <a class="flex items-center gap-3 group" href="index.html">
+        <img alt="VoxBridge Logo" class="h-10 w-10 object-contain rounded-lg bg-[#0a0a0c] border border-theme p-1 transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBtTGm-mAyNqmYxvp_kyd3QQPHoe25vpuBpzFH3Z0wgHs0gjRApjfQiecwNkveBGG2DSvSCdVJBuExTM4OQ3-5vUMo71xYCbnfDZ20pc0F0mIve4vCdMU59U-CIT16ezMO11RBWCmdo0awl8Oj0poofuDzrQeMWg8rs7J0uvouQkYXJ_Nr8UtqEPe1QnSg2_KGXuMyiPpZ3PCvit0_Gn9_FuYn0tpVmIGQ984EhRujrN4IoIXSs3xcRg" />
+        <span class="font-display text-xl text-on-surface tracking-tight font-bold group-hover:text-primary transition-colors">VoxBridge</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a class="text-on-surface-variant hover:text-on-surface transition-colors nav-link-animated" href="index.html">Home</a>
+        <a class="text-on-surface-variant hover:text-on-surface transition-colors nav-link-animated" href="dashboard.html">Dashboard</a>
+        <a class="text-on-surface-variant hover:text-on-surface transition-colors nav-link-animated" href="account.html">Account</a>
+        <a aria-current="page" class="text-on-surface font-semibold transition-colors flex items-center gap-1.5 nav-link-animated" href="founder.html">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>Founders
+        </a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <!-- Theme Toggle Button -->
+        <button class="p-2.5 rounded-lg bg-surface-container-low border border-theme text-on-surface hover:bg-surface-container-high transition-colors cursor-pointer flex items-center justify-center hover-btn" onclick="window.toggleTheme()" title="Switch Light / Dark Mode" aria-label="Switch Light or Dark Mode">
+          <span class="material-symbols-outlined text-[19px]" id="themeToggleIcon">dark_mode</span>
+        </button>
+
+        <button id="mobileMenuToggle" class="md:hidden p-2 rounded-lg bg-surface-container-low border border-theme text-on-surface transition-colors" onclick="document.getElementById('mobileNavMenu').classList.toggle('hidden')" aria-label="Toggle Navigation Menu">
+          <span class="material-symbols-outlined text-[20px]">menu</span>
+        </button>
+
+        <a class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary-container hover:bg-secondary-container text-white font-semibold text-sm shadow-md hover-btn" href="dashboard.html">
+          Open Dashboard
+        </a>
+      </div>
+    </div>
+
+    <div id="mobileNavMenu" class="hidden md:hidden bg-surface border-b border-theme px-6 py-3 flex flex-col gap-2">
+      <a class="text-sm text-on-surface-variant py-1" href="index.html">Home</a>
+      <a class="text-sm text-on-surface-variant py-1" href="dashboard.html">Dashboard</a>
+      <a class="text-sm text-on-surface-variant py-1" href="account.html">Account</a>
+      <a class="text-sm text-on-surface font-medium py-1" href="founder.html">Founders</a>
+    </div>
+  </header>
+
+  <main class="w-full pt-28 pb-20 px-6 lg:px-8 max-w-6xl mx-auto flex-1 relative overflow-x-hidden">
+    <!-- Subtle Parallax Ambient Glow -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <div class="parallax-layer absolute -top-16 right-1/4 w-[420px] h-[260px] bg-primary-container/10 blur-[110px] rounded-full" data-parallax-speed="0.18"></div>
+    </div>
+
+    <!-- Lead Founder Hero -->
+    <section class="relative grid grid-cols-1 md:grid-cols-12 gap-10 items-center pb-16 border-b border-theme">
+      <div class="md:col-span-5 flex justify-center reveal-on-scroll">
+        <div class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-2xl overflow-hidden border border-theme bg-surface-container-low shadow-xl hover-card">
+          <img
+            alt="Hanish Chandra Madasu — Founder and Lead of VoxBridge"
+            class="w-full h-full object-cover object-top"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp6Z60_dKv02t2BBBLMHQ0Hptuyk7DkFHjY2sFXj9A65JKthkUd49hmE5SIXwQzbNpQeGo8obRQmweXaeui1umxtFemTS_5H5d3AzrulG2ZyHG48HK1L1kenSMPH-Eslj7GX3GsFVPN7-Z68oAZf1Pfc_03SOkMPlsjWewZt_49xqGi6wLpzpZohywPSmya6Y_uF0hiO3D6fQr5EbJh98RYjdWTA_JIbJBXu-ccNXeMUpuJWzq85N2cg"
+          />
+        </div>
+      </div>
+
+      <div class="md:col-span-7 space-y-5 text-center md:text-left reveal-on-scroll reveal-delay-1">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/15 border border-primary-container/30 text-xs font-semibold text-primary">
+          <span> Founder and Security • VoxBridge</span>
+        </div>
+
+        <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-on-surface tracking-tight leading-tight">
+          Hanish Chandra Madasu
+        </h1>
+
+        <p class="text-sm font-medium text-primary">
+          B.Sc. Computer Science • TU Dortmund
+        </p>
+
+        <p class="text-base text-on-surface-variant leading-relaxed">
+          Hanish sparked the original idea behind VoxBridge after realizing that traditional reading and text drills don't prepare learners for real spoken conversations. Together with his five co-founders at TU Dortmund, the team refined and built the VoxBridge experience you see today.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
+          <a
+            href="https://www.linkedin.com/in/hanish-chandra-madasu/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary-container hover:bg-secondary-container text-white text-sm font-semibold shadow-sm hover-btn"
+          >
+            <span>Connect on LinkedIn</span>
+            <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+          </a>
+          <a
+            href="dashboard.html"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-theme text-on-surface text-sm font-medium hover-btn"
+          >
+            <span>Try the App Dashboard</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Co-Founders Grid -->
+    <section class="py-16 space-y-8 border-b border-theme">
+      <div class="reveal-on-scroll max-w-3xl space-y-2">
+        <span class="text-xs font-semibold uppercase tracking-wider text-primary">The Founding Team</span>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-on-surface tracking-tight">
+          Co-Founders &amp; Department Leads
+        </h2>
+        <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">
+          Hanish sparked the vision, and our co-founding team at TU Dortmund shaped, engineered, and polished every layer of VoxBridge—each leading a dedicated department.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Co-Founder 1: Luis Götz -->
+        <a
+        href="https://www.linkedin.com/in/luis-g%C3%B6tz-2588ab415/"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="View Luis Götz on LinkedIn"
+        class="reveal-on-scroll reveal-delay-1 hover-card bg-surface-container-low border border-theme rounded-2xl p-6 flex flex-col justify-between gap-4 shadow-sm group cursor-pointer block"
+        >
+        <div class="space-y-3">
+            <div class="flex items-center justify-between">
+            <div class="card-icon-box w-14 h-14 rounded-xl overflow-hidden border border-theme bg-surface-container shrink-0 shadow-sm">
+                <img
+                alt="Luis Götz — Co-Founder of VoxBridge"
+                class="w-full h-full object-cover object-top"
+                src="assets/luis-goetz.png"
+                />
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-surface-container text-primary text-[11px] font-semibold border border-theme inline-flex items-center gap-1">
+                <span>Co-Founder</span>
+                <span class="material-symbols-outlined text-[13px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">open_in_new</span>
+            </span>
+            </div>
+            <div>
+            <h3 class="font-display text-lg font-bold text-on-surface group-hover:text-primary transition-colors">Luis Götz</h3>
+            <p class="text-xs text-primary font-medium mt-0.5">B.Sc. Applied Computer Science • TU Dortmund</p>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+            Co-Founder leading core product architecture and department operations to turn early concepts into a reliable speaking platform.
+            </p>
+        </div>
+        <div class="pt-3 border-t border-theme flex items-center justify-between text-[11px] text-on-surface-variant">
+            <span>Development</span>
+            <span class="text-on-surface font-medium">TU Dortmund</span>
+        </div>
+        </a>
+
+        <!-- Co-Founder 2: Swen Selimovic -->
+        <div class="reveal-on-scroll reveal-delay-2 hover-card bg-surface-container-low border border-theme rounded-2xl p-6 flex flex-col justify-between gap-4 shadow-sm">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="card-icon-box w-11 h-11 rounded-xl bg-primary-container/15 text-primary font-display font-bold text-sm flex items-center justify-center">
+                SS
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-surface-container text-primary text-[11px] font-semibold border border-theme">Co-Founder</span>
+            </div>
+            <div>
+              <h3 class="font-display text-lg font-bold text-on-surface">Swen Selimovic</h3>
+              <p class="text-xs text-primary font-medium mt-0.5">B.Sc. Applied Computer Science • TU Dortmund</p>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+              Co-Founder leading engineering workflows and applied systems design across the VoxBridge experience.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-theme flex items-center justify-between text-[11px] text-on-surface-variant">
+            <span>Testing</span>
+            <span class="text-on-surface font-medium">TU Dortmund</span>
+          </div>
+        </div>
+
+        <!-- Co-Founder 3: Nana Kwame Yanful -->
+        <div class="reveal-on-scroll reveal-delay-3 hover-card bg-surface-container-low border border-theme rounded-2xl p-6 flex flex-col justify-between gap-4 shadow-sm">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="card-icon-box w-11 h-11 rounded-xl bg-primary-container/15 text-primary font-display font-bold text-sm flex items-center justify-center">
+                NY
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-surface-container text-primary text-[11px] font-semibold border border-theme">Co-Founder</span>
+            </div>
+            <div>
+              <h3 class="font-display text-lg font-bold text-on-surface">Nana Kwame Yanful</h3>
+              <p class="text-xs text-primary font-medium mt-0.5">B.Sc. Applied Computer Science • TU Dortmund</p>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+              Co-Founder leading user experience, community matching flows, and cross-timezone partner onboarding.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-theme flex items-center justify-between text-[11px] text-on-surface-variant">
+            <span>Testing</span>
+            <span class="text-on-surface font-medium">TU Dortmund</span>
+          </div>
+        </div>
+
+        <!-- Co-Founder 4: Kamel Kolta -->
+        <div class="reveal-on-scroll reveal-delay-1 hover-card bg-surface-container-low border border-theme rounded-2xl p-6 flex flex-col justify-between gap-4 shadow-sm">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="card-icon-box w-11 h-11 rounded-xl bg-primary-container/15 text-primary font-display font-bold text-sm flex items-center justify-center">
+                KK
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-surface-container text-primary text-[11px] font-semibold border border-theme">Co-Founder</span>
+            </div>
+            <div>
+              <h3 class="font-display text-lg font-bold text-on-surface">Kamel Kolta</h3>
+              <p class="text-xs text-primary font-medium mt-0.5">B.Sc. Computer Science • TU Dortmund</p>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+              Co-Founder leading backend infrastructure, real-time room stability, and low-latency session delivery.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-theme flex items-center justify-between text-[11px] text-on-surface-variant">
+            <span>Development</span>
+            <span class="text-on-surface font-medium">TU Dortmund</span>
+          </div>
+        </div>
+
+        <!-- Co-Founder 5: Mohammad Zohir El Malouhi -->
+        <div class="reveal-on-scroll reveal-delay-2 hover-card bg-surface-container-low border border-theme rounded-2xl p-6 flex flex-col justify-between gap-4 shadow-sm">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="card-icon-box w-11 h-11 rounded-xl bg-primary-container/15 text-primary font-display font-bold text-sm flex items-center justify-center">
+                ZM
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-surface-container text-primary text-[11px] font-semibold border border-theme">Co-Founder</span>
+            </div>
+            <div>
+              <h3 class="font-display text-lg font-bold text-on-surface">Mohammad Zohir El Malouhi</h3>
+              <p class="text-xs text-primary font-medium mt-0.5">B.Sc. Computer Science • TU Dortmund</p>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+              Co-Founder leading AI Bridge intelligence, live whisper cue triggers, and post-session recap generation.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-theme flex items-center justify-between text-[11px] text-on-surface-variant">
+            <span>Security</span>
+            <span class="text-on-surface font-medium">TU Dortmund</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Story: From Idea to VoxBridge -->
+    <section class="py-16 space-y-8 border-b border-theme reveal-on-scroll">
+      <div class="max-w-3xl space-y-4">
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-on-surface tracking-tight">
+          How VoxBridge Came Together
+        </h2>
+        <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">
+          Hanish sparked the initial idea for VoxBridge out of a simple frustration: reading flashcards and completing grammar drills on an app doesn't prepare you for a real conversation when someone asks you a question in person.
+        </p>
+        <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">
+          Once Hanish shared the concept, Luis, Swen, Nana, Kamel, and Zohir joined forces—bringing together Computer Science and Applied Computer Science expertise from TU Dortmund to refine the matching flow, polish the user interface, and build the VoxBridge platform you see today.
+        </p>
+      </div>
+    </section>
+
+    <!-- Three Core Principles -->
+    <section class="py-16 space-y-8">
+      <h2 class="font-display text-2xl font-bold text-on-surface tracking-tight reveal-on-scroll">
+        What We Believe
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="reveal-on-scroll reveal-delay-1 hover-card bg-surface-container-low border border-theme rounded-xl p-6 space-y-3 shadow-sm">
+          <div class="card-icon-box w-10 h-10 rounded-lg bg-primary-container/15 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-[22px]">record_voice_over</span>
+          </div>
+          <h3 class="font-display text-lg font-bold text-on-surface">Speaking Comes First</h3>
+          <p class="text-sm text-on-surface-variant leading-relaxed">
+            Children learn to speak years before they ever read or write. Real voice practice builds natural fluency faster than tapping screens.
+          </p>
+        </div>
+
+        <div class="reveal-on-scroll reveal-delay-2 hover-card bg-surface-container-low border border-theme rounded-xl p-6 space-y-3 shadow-sm">
+          <div class="card-icon-box w-10 h-10 rounded-lg bg-primary-container/15 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-[22px]">schedule</span>
+          </div>
+          <h3 class="font-display text-lg font-bold text-on-surface">Matched by Free Time</h3>
+          <p class="text-sm text-on-surface-variant leading-relaxed">
+            Scheduling shouldn't be harder than the language itself. Pick your open slots and let time-zone matching find your partner.
+          </p>
+        </div>
+
+        <div class="reveal-on-scroll reveal-delay-3 hover-card bg-surface-container-low border border-theme rounded-xl p-6 space-y-3 shadow-sm">
+          <div class="card-icon-box w-10 h-10 rounded-lg bg-primary-container/15 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-[22px]">hearing</span>
+          </div>
+          <h3 class="font-display text-lg font-bold text-on-surface">Help Without Interrupting</h3>
+          <p class="text-sm text-on-surface-variant leading-relaxed">
+            The AI Bridge stays silent while you talk and only steps in with a quick cue when you get stuck—keeping the human conversation front and center.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="w-full border-t border-theme py-12" style="background-color: var(--bg-footer);">
+    <div class="w-full max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-on-surface-variant">
+      <div class="flex items-center gap-3">
+        <span class="font-display text-base text-on-surface font-bold">VoxBridge</span>
+        <span>— Stop Texting. Start Speaking.</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="index.html" class="hover:text-on-surface">Home</a>
+        <a href="dashboard.html" class="hover:text-on-surface">Dashboard</a>
+        <a href="account.html" class="hover:text-on-surface">Account</a>
+        <a href="founder.html" class="hover:text-on-surface">Founders</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
