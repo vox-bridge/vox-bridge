@@ -43,6 +43,9 @@ window.applyTheme = function (theme) {
     root.classList.add("dark");
     if (icon) icon.innerText = "light_mode";
   }
+  document.querySelectorAll("[data-brand-logo]").forEach((img) => {
+  img.src = theme === "light" ? "assets/logo-light.png" : "assets/logo-dark.png";
+  });
   localStorage.setItem("voxbridge-theme", theme);
 };
 
